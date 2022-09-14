@@ -9,7 +9,7 @@ import CutomInput from "../components/CutomInput.vue";
 export default defineComponent({
   name: "HomeView",
   setup() {
-    const { getShows, getSearchResult } = useAPIManager();
+    const { getAllShows, getSearchResult } = useAPIManager();
     const displayedGenres = ["Adventure", "Fantasy", "Romance"];
     const allShows = ref<IShowItem[]>([]);
     const searchedShows = ref<IShowItem[]>([]);
@@ -37,7 +37,7 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      allShows.value = await getShows();
+      allShows.value = await getAllShows();
     });
 
     return {

@@ -1,4 +1,15 @@
 export default function useAPIManager() {
+  const root = "https://api.tvmaze.com";
+
+  const getShows = (url: string) => {
+    return fetch(url)
+      .then(handleErrors)
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleErrors = (response: any) => {
     if (!response.ok) {
       throw Error(response.status);
@@ -6,35 +17,19 @@ export default function useAPIManager() {
     return response;
   };
 
-  const getShows = () => {
-    return fetch("https://api.tvmaze.com/shows")
-      .then(handleErrors)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => console.log(error));
+  const getAllShows = () => {
+    return getShows(`${root}/shows`);
   };
 
   const getShowItem = (id: string) => {
-    return fetch(`https://api.tvmaze.com/shows/${id}`)
-      .then(handleErrors)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => console.log(error));
+    return getShows(`${root}/shows/${id}`);
   };
 
   const getSearchResult = (inputQuery: string) => {
-    return fetch(
-      "https://api.tvmaze.com/search/shows?" +
-        new URLSearchParams({ q: inputQuery })
-    )
-      .then(handleErrors)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => console.log(error));
+    return getShows(
+      `${root}/search/shows?` + new URLSearchParams({ q: inputQuery })
+    );
   };
 
-  return { getShows, getShowItem, getSearchResult };
+  return { getAllShows, getShowItem, getSearchResult };
 }
