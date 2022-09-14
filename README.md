@@ -1,5 +1,5 @@
 ## Prerequisites
-- Node.js(Vite uses node import which is supported in v16.0.0+ and v14.18.0+. v15 does not supported.)
+- Node.js
 - VS Code or any IDE
 
 ## Project Setup
