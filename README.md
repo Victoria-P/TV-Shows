@@ -1,5 +1,5 @@
 ## Prerequisites
-- Node.js(14+)
+- Node.js
 - VS Code or any IDE
 
 ## Project Setup
