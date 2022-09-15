@@ -81,5 +81,6 @@ input {
 @media (max-width: $medium-width) {
   main {
     padding: 10px;
+    justify-content: unset;
   }
 }

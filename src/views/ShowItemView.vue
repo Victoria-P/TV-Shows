@@ -96,10 +96,6 @@ export default defineComponent({
 @media (max-width: $medium-width) {
   .show-item {
     padding: 10px;
-    position: absolute;
-    height: fit-content;
-    top: 0px;
-    margin: 10px;
 
     .description {
       max-height: none;
