@@ -5,6 +5,7 @@ import ShowCard from "../components/ShowCard.vue";
 import Category from "../components/Category.vue";
 import useAPIManager from "@/composables/useAPIManager";
 import CutomInput from "../components/CutomInput.vue";
+import { sortByProp } from "../shared/utils";
 
 export default defineComponent({
   name: "HomeView",
@@ -38,6 +39,7 @@ export default defineComponent({
 
     onMounted(async () => {
       allShows.value = await getAllShows();
+      allShows.value = sortByProp(allShows.value, "rating.average");
     });
 
     return {
@@ -56,12 +58,14 @@ export default defineComponent({
 
 <template>
   <div v-if="allShows.length" class="home-wrapper column flex flex-1">
-    <CutomInput
-      :inputValue="searchQuery"
-      placeholder="Search..."
-      @handleInput="handleSearch"
-      @handleReset="handleSearchReset"
-    />
+    <div class="flex justify-between">
+      <CutomInput
+        :inputValue="searchQuery"
+        placeholder="Search..."
+        @handleInput="handleSearch"
+        @handleReset="handleSearchReset"
+      />
+    </div>
 
     <div v-if="searchQuery.length > 2">
       <div
@@ -80,16 +84,13 @@ export default defineComponent({
     </div>
 
     <div v-else>
-      <div v-for="genre in displayedGenres" :key="genre">
-        <div class="title">{{ genre }}</div>
-        <Category>
-          <ShowCard
-            v-for="item in filterShowsByGenre(genre)"
-            :showItem="item"
-            :key="item.id"
-          />
-        </Category>
-      </div>
+      <Category v-for="genre in displayedGenres" :key="genre" :title="genre">
+        <ShowCard
+          v-for="item in filterShowsByGenre(genre)"
+          :showItem="item"
+          :key="item.id"
+        />
+      </Category>
     </div>
   </div>
 </template>
@@ -101,19 +102,9 @@ export default defineComponent({
   max-width: $medium-width;
   overflow-y: auto;
 
-  .title {
-    margin: 20px 0px;
-  }
-
   .search-result {
     margin: 20px 0px;
     gap: 15px;
-  }
-}
-
-@media (max-width: $medium-width) {
-  .title {
-    text-align: center;
   }
 }
 </style>

@@ -5,6 +5,7 @@ import type { IShowItem } from "@/types/Interfaces";
 import { computed, defineComponent, onMounted, ref } from "vue";
 import Rating from "../components/Rating.vue";
 import InfoTable from "../components/InfoTable.vue";
+import BackBtn from "../components/BackBtn.vue";
 
 export default defineComponent({
   name: "ShowItemView",
@@ -25,12 +26,14 @@ export default defineComponent({
 
     return { showItem, description };
   },
-  components: { Rating, InfoTable },
+  components: { Rating, InfoTable, BackBtn },
 });
 </script>
 
 <template>
   <div v-if="showItem" class="show-item">
+    <BackBtn />
+
     <div class="main-info flex">
       <div class="flex justify-center">
         <img

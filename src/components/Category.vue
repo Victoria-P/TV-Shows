@@ -3,6 +3,12 @@ import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "Category",
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+  },
   setup() {
     const sliderRef: any = ref(null);
 
@@ -37,13 +43,16 @@ export default defineComponent({
 
     return { sliderRef };
   },
-  components: {},
 });
 </script>
 
 <template>
-  <div class="shows-wrapper flex row" ref="sliderRef">
-    <slot></slot>
+  <div>
+    <div class="title">{{ title }}</div>
+
+    <div class="shows-wrapper flex row" ref="sliderRef">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -55,10 +64,18 @@ export default defineComponent({
   padding-bottom: 10px;
 }
 
+.title {
+  margin: 20px 0px;
+}
+
 @media (max-width: $medium-width) {
   .shows-wrapper {
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .title {
+    text-align: center;
   }
 }
 </style>

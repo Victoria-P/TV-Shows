@@ -60,7 +60,7 @@ tr:nth-child(even) {
 }
 
 table {
-  margin-left: 20px;
+  margin-left: 25px;
   border: none;
 
   td:first-child,
@@ -79,6 +79,12 @@ table {
 
   td:first-child {
     font-size: 14px;
+  }
+}
+
+@media (max-width: $medium-width) {
+  table {
+    margin-left: 0px;
   }
 }
 </style>
